@@ -1,8 +1,9 @@
-= object_regex
+# object_regex
 
-Description goes here.
+Provides regex-based searches on sequences of arbitrary objects. Developed for querying Ruby token streams, object_regex only requires that the
+objects you are searching implement a single method that returns a string.
 
-== Note on Patches/Pull Requests
+## Note on Patches/Pull Requests
  
 * Fork the project.
 * Make your feature addition or bug fix.
@@ -12,6 +13,6 @@ Description goes here.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Copyright
+## Copyright
 
 Copyright (c) 2011 Michael Edgar. See LICENSE for details.
