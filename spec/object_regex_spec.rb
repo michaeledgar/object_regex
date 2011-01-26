@@ -14,6 +14,12 @@ else
     end
   end
 
+  class Integer
+    def reg_desc
+      'a' * self
+    end
+  end
+
   describe ObjectRegex do
     context 'with a small input alphabet' do
       before do
@@ -55,6 +61,28 @@ else
       it 'works with ?, + and *' do
         ObjectRegex.new('int str? (str int)+ [comment str]*').all_matches(@input).should ==
             [@input[2..11]]
+      end
+    end
+    
+    context 'with a large input alphabet' do
+      before do
+        search = ''
+        50.upto(150) do |x|
+          search << x.reg_desc
+          if x % 2 == 1
+            search << '?'
+          end
+          search << ' '
+        end
+        @regex = ObjectRegex.new(search)
+        @input = (1..500).to_a
+        # remove all odd numbers divisible by 7 or 5
+        @input.reject! { |x| x % 2 == 1 && (x % 7 == 0 || x % 3 == 0) }
+      end
+      
+      it 'handles searching with the large alphabet' do
+        expected = (50..150).to_a.reject { |x| x % 2 == 1 && (x % 7 == 0 || x % 3 == 0) }
+        @regex.match(@input).should == expected
       end
     end
   end
