@@ -51,6 +51,11 @@ else
         ObjectRegex.new('str{2,3}').all_matches(@input).should ==
             [@input[0..1], @input[3..4]]
       end
+      
+      it 'works with ?, + and *' do
+        ObjectRegex.new('int str? (str int)+ [comment str]*').all_matches(@input).should ==
+            [@input[2..11]]
+      end
     end
   end
 end
