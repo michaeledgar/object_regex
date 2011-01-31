@@ -1,3 +1,32 @@
+# Super-Quick Introduction
+
+Ruby 1.9+ only. Not for a strict technical reason, but because I like 1.9's standard-library features and didn't
+want to rewrite it to not use them.
+
+    gem install object_regex
+
+    require 'object_regex'
+    class Token < Struct.new(:type, :contents)
+      def reg_desc
+        type.to_s
+      end
+    end
+    input = [Token.new(:str, '"hello"'),
+             Token.new(:str, '"there"'),
+             Token.new(:int, '2'),
+             Token.new(:str, '"worldagain"'),
+             Token.new(:str, '"highfive"'),
+             Token.new(:int, '5'),
+             Token.new(:str, 'jklkjl'),
+             Token.new(:int, '3'),
+             Token.new(:comment, '#lol'),
+             Token.new(:str, ''),
+             Token.new(:comment, '#no pairs'),
+             Token.new(:str, 'jkl'),
+             Token.new(:eof, '')]
+    # all contiguous string tokens, and any number that follows them (if any)
+    ObjectRegex.new('str+ int?').all_matches(input)
+
 ## Introduction
 
 I present a small Ruby class which provides full Ruby Regexp matching on sequences of (potentially) heterogenous objects, conditioned on those objects implementing a single, no-argument method returning a String. I propose it should be used to implement the desired behavior in the Ruby standard library.
